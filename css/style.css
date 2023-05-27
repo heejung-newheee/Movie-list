@@ -28,7 +28,8 @@ i, em, address { font-style: normal; font-weight: normal; }
     padding:15px 35px; */
     display: block;
     width: 100%; height: 46px;
-    padding: 0.5rem 0.75rem;
+    border-radius: 46px;
+    padding: 0.5rem 1.3rem;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -36,7 +37,6 @@ i, em, address { font-style: normal; font-weight: normal; }
     box-sizing: border-box;
     background-color: #fff;
     border: 1px solid #ced4da;
-    border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .banner .search .search-btn {
@@ -45,6 +45,8 @@ i, em, address { font-style: normal; font-weight: normal; }
     top: 3px;
     height: 40px;
     width: 40px;
+    border-radius: 40px;
+    cursor: pointer;
 }
 .banner .search input:focus {
     color: rgb(39, 39, 39);
@@ -64,4 +66,5 @@ i, em, address { font-style: normal; font-weight: normal; }
 .card-wrap .card-list {
     margin: 0 1vw;
     width: calc((100% - 8vw)/4);
+    cursor: pointer;
 }

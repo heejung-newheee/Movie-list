@@ -33,6 +33,7 @@ function listing(){
                             </div>`       
             cardWrap.innerHTML = temp_html;
         });
+
         cardWrap.addEventListener("click", function({target}){
             console.log("at")
             if (target !== cardWrap) {
@@ -49,6 +50,5 @@ function listing(){
 }
 
 // 검색 키워드. filter && includes
-function searchMovie (){
-    rows[i].filter(()=>{})
-}
+function searchMovie (){}
+    
