@@ -30,16 +30,13 @@ function listing(){
                                     <p class="card-text">${overview}</p>
                                     <p class="card-avg">${vote_avg}</p>
                                 </div>
-                            </div>`
-            // $('.card-wrap').append(temp_html);
-            
+                            </div>`       
             cardWrap.innerHTML = temp_html;
         });
-        // let cardList = document.querySelector('.card-warp');
         cardWrap.addEventListener("click", function({target}){
             console.log("at")
             if (target !== cardWrap) {
-                if (target.className === "movie-card") {
+                if (target.className === "card-list") {
                   alert(`영화 id: ${target.id}`);
                 } else {
                   alert(`영화 id: ${target.parentNode.id}`);
@@ -51,12 +48,7 @@ function listing(){
     .catch((err) => console.error(err));
 }
 
-
-function idAlert(){
-    console.log("!!!!!!!!!!!!");
-    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then((response) => response.json()).then((response) => {
-        rows = data['result'];
-        
-
-    })
+// 검색 키워드. filter && includes
+function searchMovie (){
+    rows[i].filter(()=>{})
 }

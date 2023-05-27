@@ -12,7 +12,45 @@ table {border-collapse:collapse; border-spacing: 0;}
 input, select { vertical-align: middle; }
 i, em, address { font-style: normal; font-weight: normal; }
 
-
+.banner {width: 100%;}
+.banner .search {
+    width: 50%;
+    margin:0 auto;
+    position: relative;
+}
+.banner .search input {
+    /* width: 100%;
+    height: 23px;
+    line-height: 1.2rem;
+    font-size: 1.1rem;
+    border: solid 1px #efefef;
+    border-radius: 35px;
+    padding:15px 35px; */
+    display: block;
+    width: 100%; height: 46px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #7c7c7c;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.banner .search .search-btn {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    height: 40px;
+    width: 40px;
+}
+.banner .search input:focus {
+    color: rgb(39, 39, 39);
+    border-color: rgb(100, 172, 219);
+    outline: 0;
+}
 .container {
     max-width: 1400px;
     margin: 0 auto;
