@@ -15,7 +15,8 @@ function listing(){
     fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then((response) => response.json()).then((response) => {        
         console.log(response)
         let rows = response['results'];
-        let temp_html = '';   
+        let temp_html = '';  
+        let cardWrap = document.querySelector(".card-wrap"); 
         rows.forEach((a)=>{
             let title = a['original_title'];
             let overview = a['overview'];
@@ -31,25 +32,31 @@ function listing(){
                                 </div>
                             </div>`
             // $('.card-wrap').append(temp_html);
-            let cardWrap = document.querySelector(".card-wrap");
+            
             cardWrap.innerHTML = temp_html;
-        })
+        });
+        // let cardList = document.querySelector('.card-warp');
+        cardWrap.addEventListener("click", function({target}){
+            console.log("at")
+            if (target !== cardWrap) {
+                if (target.className === "movie-card") {
+                  alert(`영화 id: ${target.id}`);
+                } else {
+                  alert(`영화 id: ${target.parentNode.id}`);
+                }
+            }
+        });    
+
     })
     .catch((err) => console.error(err));
-
 }
 
 
 function idAlert(){
     console.log("!!!!!!!!!!!!");
-    // fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then((response) => response.json()).then((response) => {
-    //     rows = data['result'];
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then((response) => response.json()).then((response) => {
+        rows = data['result'];
         
 
-    // })
+    })
 }
-let cardList = document.querySelector('.card-list');
-console.log(cardList);
-cardList.addEventListener("click", function(){    
-    console.log("!!!!!!!!!!!!");
-});

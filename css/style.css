@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+
+*{	margin: 0; padding: 0; vertical-align: top; border: 0; outline: 0;}
+ul, ol, li { list-style: none; }
+a { outline:0; text-decoration:none; color:#fff; }
+img { border:0; }
+img, video { max-width: 100%; }
+body { line-height: 1.4;  font-size: 100%; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+table {border-collapse:collapse; border-spacing: 0;}
+input, select { vertical-align: middle; }
+i, em, address { font-style: normal; font-weight: normal; }
+
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding:100px 0;
+}
+.card-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card-wrap .card-list {
+    margin: 0 1vw;
+    width: calc((100% - 8vw)/4);
+}
