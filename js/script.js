@@ -1,6 +1,4 @@
-window.addEventListener("DOMContentLoaded", function(){
-    listing();
-});
+window.addEventListener("DOMContentLoaded", ()=>listing());
 
 const options = {
     method: 'GET',
@@ -35,7 +33,7 @@ function listing(){
         });
 
         cardWrap.addEventListener("click", function({target}){
-            console.log("at")
+            console.log("alert ID")
             if (target !== cardWrap) {
                 if (target.className === "card-list") {
                   alert(`영화 id: ${target.id}`);
@@ -43,12 +41,40 @@ function listing(){
                   alert(`영화 id: ${target.parentNode.id}`);
                 }
             }
-        });    
+        });
+        
+        // 검색 키워드. filter || includes
+        let searchBtn = document.getElementById("search-btn");
+        searchBtn.addEventListener("click", function(){
+            // input 값을 가져온다.    
+            // row 데이터의 제목들과 비교한다.
+            // 키워드가 들어간 영화만 listing 한다.
+            let temp_html = '';  
+            let inputValue =  document.getElementById("search-input").value.toLowerCase();
+            console.log(inputValue);
 
+            rows.forEach((a)=>{
+                let title = a['original_title'];
+                let overview = a['overview'];
+                let poster = a['poster_path'];
+                let vote_avg = a['vote_average'];
+                let _id = a['id'];
+                
+                let titleLower = title.toLowerCase();
+
+                if(titleLower.includes(inputValue)){
+                    temp_html +=`<div class="card-list" id="${_id}">
+                                    <img src="https://image.tmdb.org/t/p/original${poster}" class="card-img" />
+                                    <div class="card-info">
+                                        <h5 class="card-title">${title}</h5>
+                                        <p class="card-text">${overview}</p>
+                                        <p class="card-avg">${vote_avg}</p>
+                                    </div>
+                                </div>`       
+                    cardWrap.innerHTML = temp_html;
+                }
+            });
+        });
     })
     .catch((err) => console.error(err));
 }
-
-// 검색 키워드. filter && includes
-function searchMovie (){}
-    
