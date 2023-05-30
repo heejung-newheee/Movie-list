@@ -1,4 +1,8 @@
-window.addEventListener("DOMContentLoaded", ()=>listing());
+window.addEventListener("DOMContentLoaded", ()=>{
+    listing();
+    // 로드시 input창 커서 위치
+    let input = document.getElementById("search-input").focus();
+});
 
 const options = {
     method: 'GET',
@@ -60,6 +64,7 @@ function listing(){
                 let vote_avg = a['vote_average'];
                 let _id = a['id'];
                 
+                // 대소문자 관계없이 검색 가능
                 let titleLower = title.toLowerCase();
 
                 if(titleLower.includes(inputValue)){
@@ -72,9 +77,22 @@ function listing(){
                                     </div>
                                 </div>`       
                     cardWrap.innerHTML = temp_html;
+                } else {
+                    alert("검색한 영화가 없습니다! 다시 검색해 주세요.");
+                    if(window.confirm(message) === true){
+                        window.location.href="index.html";  
+                    }                                      
                 }
             });
         });
+
+        // 키보드 enter키 입력
+        document.getElementById("search-input").addEventListener("keyup", function(e) {
+            if (e.code === 'Enter') {
+                document.getElementById("search-btn").click();
+            }
+        });
+    
     })
     .catch((err) => console.error(err));
 }

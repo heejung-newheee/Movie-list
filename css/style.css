@@ -11,7 +11,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 table {border-collapse:collapse; border-spacing: 0;}
 input, select { vertical-align: middle; }
 i, em, address { font-style: normal; font-weight: normal; }
-
+.blind {
+    display: none;
+}
 .banner {width: 100%;}
 .banner .search {
     width: 80%;
