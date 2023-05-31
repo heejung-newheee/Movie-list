@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
     //로드시 리스팅
     listing();
     // 로드시 검색 input창 커서 위치
-    let input = document.getElementById("search-input").focus();
+    focusing();
 });
 
 // GET
@@ -15,19 +15,20 @@ const OPTIONS = {
     },
 };
 
-// 카드 목록 리스팅
+// 영화 카드 리스팅
 function listing(){
     fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', OPTIONS).then((response) => response.json()).then((response) => {        
         // console.log(response)
         let movies = response['results'];
-        let temp_html = '';  
         let cardWrap = document.querySelector(".card-wrap"); 
-        movies.forEach((a)=>{
-            let title = a['original_title'];
-            let overview = a['overview'];
-            let poster = a['poster_path'];
-            let vote_avg = a['vote_average'];
-            let _id = a['id'];
+        let temp_html = ''; 
+
+        movies.forEach((item)=>{
+            let title = item['original_title'];
+            let overview = item['overview'];
+            let poster = item['poster_path'];
+            let vote_avg = item['vote_average'];
+            let _id = item['id'];
             temp_html += `<div class="card-list" id="${_id}" onclick="alertId(${_id})">
                                 <img src="https://image.tmdb.org/t/p/original${poster}" class="card-img" />
                                 <div class="card-info">
@@ -38,75 +39,75 @@ function listing(){
                             </div>`       
             cardWrap.innerHTML = temp_html;
         });
-
-        // 카드 클릭시 아이디 alert
-        // cardWrap.addEventListener("click", function({target}){
-        //     // console.log("alert ID")
-        //     if (target !== cardWrap) {
-        //         if (target.className === "card-list") {
-        //           alert(`영화 id: ${target._id}`);
-        //         } else {
-        //           alert(`영화 id: ${target.parentNode.id}`);
-        //         }
-        //     }
-        // });
-
-
-        // 검색 키워드 includes
-        let searchBtn = document.getElementById("search-btn");
-        searchBtn.addEventListener("click", function(){
-            let temp_html = '';  
-            // input 입력값
+      
+        // 검색 키워드 filter / forEach
+        let searchBtn = document.getElementById("search-btn");        
+        searchBtn.addEventListener("click", ()=>{
+            console.log('movies->',movies);
             let inputValue =  document.getElementById("search-input").value.toLowerCase();
-            console.log('입력값->',inputValue);
+            console.log("inputValue => ",inputValue);
 
-            movies.forEach((a)=>{
-                let title = a['original_title'];
-                let overview = a['overview'];
-                let poster = a['poster_path'];
-                let vote_avg = a['vote_average'];
-                let _id = a['id'];
-                
-                // 대소문자, 띄어쓰기 관계없이 검색 가능
+            // filter로 키워드 포함 배열 생성
+            const matchMovies = movies.filter((item) => { 
+                let titles = item.original_title.split(' ').join('').toLowerCase();
                 inputValue = inputValue.split(' ').join('');
-                let titleLower = title.split(' ').join('').toLowerCase();
-                if(titleLower.includes(inputValue)){
-                    temp_html +=`<div class="card-list" id="${_id}" onclick="alertId(${_id})">
+                return titles.includes(inputValue);
+            });
+            console.log('matchmovies->',matchMovies);
+            temp_html = ''; 
+            
+            matchMovies.forEach((item)=>{
+                let title = item['original_title'];
+                let overview = item['overview'];
+                let poster = item['poster_path'];
+                let vote_avg = item['vote_average'];
+                let _id = item['id'];
+                temp_html += `<div class="card-list" id="${_id}" onclick="alertId(${_id})">
                                     <img src="https://image.tmdb.org/t/p/original${poster}" class="card-img" />
                                     <div class="card-info">
                                         <h5 class="card-title">${title}</h5>
                                         <p class="card-text">${overview}</p>
-                                        <p class="card-avg">${vote_avg}</p>
+                                        <p class="card-avg"> Rating ${vote_avg}</p>
                                     </div>
                                 </div>`       
-                    cardWrap.innerHTML = temp_html;
-                    console.log("영화있음");
-                } 
+                cardWrap.innerHTML = temp_html;
             });
-
-            // 검색한 영화가 없을때
-            if(document.querySelectorAll(".card-list").length === 20 ){
-                alert("검색된 영화가 없습니다! 다시 검색해 주세요.");
-                window.location.reload();
+            if (matchMovies.length === 0) {
+                alert("검색된 영화가 없습니다. 다시 검색해 주세요.");
+                location.reload();
+                focusing();
             }
         });
 
-        // 키보드 enter키 입력
+        // 키보드 enter 키 입력
         document.getElementById("search-input").addEventListener("keyup", function(e) {
             if (e.code === 'Enter') {
                 document.getElementById("search-btn").click();
             }
-        });
-    
+        });    
     })
     .catch((err) => console.error(err));
 }
 
+// 검색창 cursor 위치
+function focusing(){
+    let input = document.getElementById("search-input")
+    input.focus();
+}
+
 // 카드 클릭 시 영화 ID alert
-let alertId = function (_id) {
-    alert(`영화 id : ${_id}`);
-};
+let alertId = (_id) => alert(`영화 id : ${_id}`);
 
+// home top 버튼
+const topBtn = document.getElementById("top-btn");
+    // let scrollTop = document.querySelector("#top-btn").offsetTop;
 
-// 영화 검색 결과 없을 때.
-// 검색창 리로드(비워주기)
+    // if(scrollTop > 100){    
+    //     console.log("크다")
+    // }
+topBtn.addEventListener("click", function(){
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});  
+    
+// 인기 순위 배열
+// 영화 검색 결과 없을 때
