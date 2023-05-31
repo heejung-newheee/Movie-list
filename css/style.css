@@ -1,9 +1,9 @@
 @charset "utf-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 *{	margin: 0; padding: 0; vertical-align: top; border: 0; outline: 0; box-sizing: border-box;}
 ul, ol, li { list-style: none; }
-a { outline:0; text-decoration:none; color:#fff; }
+a { outline:0; text-decoration:none; color:inherit; }
 img { border:0; }
 img, video { max-width: 100%; }
 body { line-height: 1.3;  font-size: 100%; }
@@ -14,7 +14,23 @@ i, em, address { font-style: normal; font-weight: normal; }
 .blind {
     display: none;
 }
-.banner {width: 100%;}
+.banner {
+    width: 100%;
+    height: 350px;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80');
+    background-position: center;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.banner h1 {
+    font-size: 6vw;
+    font-family: 'Lobster', 'cursive', sans-serif;
+    margin-bottom: 50px;
+}
 .banner .search {
     width: 80%;
     max-width: 550px;
@@ -43,21 +59,34 @@ i, em, address { font-style: normal; font-weight: normal; }
     width: 40px;
     border-radius: 40px;
     cursor: pointer;
+    background-color: #171717;
+    color: #fff;
 }
 .banner .search input:focus {
     color: rgb(39, 39, 39);
-    border-color: rgb(100, 172, 219);
-    outline: 0;
+    border-color: rgb(255, 0, 119);
 }
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding:100px 0;
 }
+.container h2 a {
+    display: block;
+    margin: 13px 1vw;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 30px;
+}
+.container h2 a svg {
+    width: 15px;
+    line-height: 30px;
+    margin: 7px 3px;
+}
 .card-wrap {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row;
 }
 .card-wrap .card-list {
     margin: 0 1vw;
@@ -70,11 +99,19 @@ i, em, address { font-style: normal; font-weight: normal; }
 }
 .card-wrap .card-list .card-info {
     padding:20px 15px;
+    position: relative;
 }
 .card-wrap .card-list .card-info h5 {
     font-size: 1.6rem;
     line-height: 1.2;
     padding:0 0 20px 0;
+}
+.card-wrap .card-list .card-info .card-avg {
+    padding:25px 0 15px;
+    font-size: 0.9rem;
+    color:rgb(77, 77, 77);
+    font-weight: bold;
+
 }
 
 footer {

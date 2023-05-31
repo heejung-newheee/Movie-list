@@ -1,10 +1,12 @@
 window.addEventListener("DOMContentLoaded", ()=>{
+    //로드시 리스팅
     listing();
-    // 로드시 input창 커서 위치
+    // 로드시 검색 input창 커서 위치
     let input = document.getElementById("search-input").focus();
 });
 
-const options = {
+// GET
+const OPTIONS = {
     method: 'GET',
     headers: {
         accept: 'application/json',
@@ -13,13 +15,14 @@ const options = {
     },
 };
 
+// 카드 목록 리스팅
 function listing(){
-    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options).then((response) => response.json()).then((response) => {        
-        console.log(response)
-        let rows = response['results'];
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', OPTIONS).then((response) => response.json()).then((response) => {        
+        // console.log(response)
+        let movies = response['results'];
         let temp_html = '';  
         let cardWrap = document.querySelector(".card-wrap"); 
-        rows.forEach((a)=>{
+        movies.forEach((a)=>{
             let title = a['original_title'];
             let overview = a['overview'];
             let poster = a['poster_path'];
@@ -30,34 +33,33 @@ function listing(){
                                 <div class="card-info">
                                     <h5 class="card-title">${title}</h5>
                                     <p class="card-text">${overview}</p>
-                                    <p class="card-avg">${vote_avg}</p>
+                                    <p class="card-avg"> Rating ${vote_avg}</p>
                                 </div>
                             </div>`       
             cardWrap.innerHTML = temp_html;
         });
 
+        // 카드 클릭시 아이디 alert
         cardWrap.addEventListener("click", function({target}){
-            console.log("alert ID")
+            // console.log("alert ID")
             if (target !== cardWrap) {
                 if (target.className === "card-list") {
-                  alert(`영화 id: ${target.id}`);
+                  alert(`영화 id: ${target._id}`);
                 } else {
                   alert(`영화 id: ${target.parentNode.id}`);
                 }
+                location.reload();
             }
         });
         
-        // 검색 키워드. filter || includes
+        // 검색 키워드. filter / includes
         let searchBtn = document.getElementById("search-btn");
         searchBtn.addEventListener("click", function(){
-            // input 값을 가져온다.    
-            // row 데이터의 제목들과 비교한다.
-            // 키워드가 들어간 영화만 listing 한다.
             let temp_html = '';  
             let inputValue =  document.getElementById("search-input").value.toLowerCase();
-            console.log(inputValue);
+            // console.log(inputValue);
 
-            rows.forEach((a)=>{
+            movies.forEach((a)=>{
                 let title = a['original_title'];
                 let overview = a['overview'];
                 let poster = a['poster_path'];
@@ -77,11 +79,14 @@ function listing(){
                                     </div>
                                 </div>`       
                     cardWrap.innerHTML = temp_html;
+                    console.log("영화잇음");
+                    // let input = .value = null ; 인풋창 지우기
+
                 } else {
-                    alert("검색한 영화가 없습니다! 다시 검색해 주세요.");
-                    if(window.confirm(message) === true){
-                        window.location.href="index.html";  
-                    }                                      
+                    // cardWrap.innerHTML = `검색한 영화가 없습니다. 다시 검색해 주세요.`
+                    // // alert("검색한 영화가 없습니다! 다시 검색해 주세요.");
+                    // // window.location.reload();
+                    // window.location.href='index.html';
                 }
             });
         });
@@ -96,3 +101,6 @@ function listing(){
     })
     .catch((err) => console.error(err));
 }
+
+// 영화 검색 결과 없을 때.
+// 검색창 리로드(비워주기)
