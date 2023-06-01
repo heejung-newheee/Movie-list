@@ -17,8 +17,7 @@ const OPTIONS = {
 
 // 영화 카드 리스팅
 function listing(){
-    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', OPTIONS).then((response) => response.json()).then((response) => {        
-        // console.log(response)
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', OPTIONS).then((response) => response.json()).then((response) => {       
         let movies = response['results'];
         let cardWrap = document.querySelector(".card-wrap"); 
         let temp_html = ''; 
@@ -43,9 +42,7 @@ function listing(){
         // 검색 키워드 filter / forEach
         let searchBtn = document.getElementById("search-btn");        
         searchBtn.addEventListener("click", ()=>{
-            // console.log('movies->',movies);
             let inputValue =  document.getElementById("search-input").value.toLowerCase();
-            // console.log("inputValue => ",inputValue);
 
             // filter로 키워드 포함 배열 생성
             const matchMovies = movies.filter((item) => { 
@@ -53,9 +50,7 @@ function listing(){
                 inputValue = inputValue.split(' ').join('');
                 return titles.includes(inputValue);
             });
-            // console.log('matchmovies->',matchMovies);
-            temp_html = ''; 
-            
+            temp_html = '';             
             matchMovies.forEach((item)=>{
                 let title = item['original_title'];
                 let overview = item['overview'];
@@ -72,10 +67,17 @@ function listing(){
                                 </div>`       
                 cardWrap.innerHTML = temp_html;
             });
+
+            // 검색 키워드 포함 영화가 없을 시 
             if (matchMovies.length === 0) {
                 alert("검색된 영화가 없습니다. 다시 검색해 주세요.");
                 location.reload();
                 focusing();
+            }
+
+            // 검색어가 없을 시 
+            if(inputValue.length === 0) {
+                alert("검색어를 입력해 주세요")
             }
         });
 
@@ -104,7 +106,7 @@ topBtn.addEventListener("click", function(){
     window.scrollTo({ top: 0, behavior: "smooth" });
 });  
 
-// home top 버튼 scroll 위치에따라 숨기기/보이기
+// home top 버튼 scroll 300 이상일때만 보여주기
 window.addEventListener("scroll", ()=>{
     let scrollY = this.scrollY;
     // console.log(scrollY)
@@ -113,7 +115,4 @@ window.addEventListener("scroll", ()=>{
     }else {
       topBtn.style.opacity = 1;
     }
-  });
-    
-// 인기 순위 배열
-// 모달
+});

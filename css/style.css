@@ -17,6 +17,7 @@ i, em, address { font-style: normal; font-weight: normal; }
 html { height: 100%; overflow:auto; }
 body { height: 100%; }
 
+/* header  */
 .banner {
     width: 100%;
     height: 350px;
@@ -74,6 +75,8 @@ body { height: 100%; }
     color: rgb(39, 39, 39);
     border-color: rgb(255, 0, 119);
 }
+
+/* main  */
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -126,6 +129,7 @@ body { height: 100%; }
     font-weight: bold;
 }
 
+/* footer */
 footer {
     padding:50px 0;
     background-color: #ced4da;
@@ -138,6 +142,7 @@ footer div {
     color:rgb(77, 77, 77);
 }
 
+/* fixed home top btn  */
 #top-btn {
     position: fixed;
     right: 30px;
