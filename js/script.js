@@ -43,9 +43,9 @@ function listing(){
         // 검색 키워드 filter / forEach
         let searchBtn = document.getElementById("search-btn");        
         searchBtn.addEventListener("click", ()=>{
-            console.log('movies->',movies);
+            // console.log('movies->',movies);
             let inputValue =  document.getElementById("search-input").value.toLowerCase();
-            console.log("inputValue => ",inputValue);
+            // console.log("inputValue => ",inputValue);
 
             // filter로 키워드 포함 배열 생성
             const matchMovies = movies.filter((item) => { 
@@ -53,7 +53,7 @@ function listing(){
                 inputValue = inputValue.split(' ').join('');
                 return titles.includes(inputValue);
             });
-            console.log('matchmovies->',matchMovies);
+            // console.log('matchmovies->',matchMovies);
             temp_html = ''; 
             
             matchMovies.forEach((item)=>{
@@ -99,15 +99,21 @@ function focusing(){
 let alertId = (_id) => alert(`영화 id : ${_id}`);
 
 // home top 버튼
-const topBtn = document.getElementById("top-btn");
-    // let scrollTop = document.querySelector("#top-btn").offsetTop;
-
-    // if(scrollTop > 100){    
-    //     console.log("크다")
-    // }
+const topBtn = document.getElementById("top-btn"); 
 topBtn.addEventListener("click", function(){
     window.scrollTo({ top: 0, behavior: "smooth" });
 });  
+
+// home top 버튼 scroll 위치에따라 숨기기/보이기
+window.addEventListener("scroll", ()=>{
+    let scrollY = this.scrollY;
+    // console.log(scrollY)
+    if(scrollY <300){
+      topBtn.style.opacity = 0;
+    }else {
+      topBtn.style.opacity = 1;
+    }
+  });
     
 // 인기 순위 배열
-// 영화 검색 결과 없을 때
+// 모달

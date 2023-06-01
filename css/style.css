@@ -1,12 +1,12 @@
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@300;400;600;700;800;900&display=swap');
 
 *{	margin: 0; padding: 0; vertical-align: top; border: 0; outline: 0; box-sizing: border-box;}
 ul, ol, li { list-style: none; }
 a { outline:0; text-decoration:none; color:inherit; }
 img { border:0; }
 img, video { max-width: 100%; }
-body { line-height: 1.3;  font-size: 100%; }
+body { line-height: 1.2;  font-size: 100%; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 table {border-collapse:collapse; border-spacing: 0;}
 input, select { vertical-align: middle; }
@@ -113,7 +113,9 @@ body { height: 100%; }
     position: relative;
 }
 .card-wrap .card-list .card-info h5 {
-    font-size: 1.6rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
     line-height: 1.2;
     padding:0 0 20px 0;
 }
@@ -141,23 +143,20 @@ footer div {
     right: 30px;
     bottom: 30px;
     display: block;
-    width: 40px; height: 40px;
+    width: 60px; height: 60px;
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
-    /* display: none; */
+    border-radius: 30px;
     transition: all 0.5s;
-}
-#top-btn.on {
-    display: block;
+    opacity: 0;
 }
 #top-btn:hover {
     box-shadow: rgba(25, 26, 30, 0.5) 5px 5px 8px;
 }
 #top-btn i {
-    height: 100%; width:100%;
-    font-size: 18px;
+    width: 100%;height: 100%;
+    font-size: 23px;
+    line-height: 60px;
     text-align: center;
-    padding:10px 0;
     margin:0 auto;
     color: #fff;
 }
