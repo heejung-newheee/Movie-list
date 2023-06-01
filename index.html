@@ -18,9 +18,11 @@
         <h1><a href="index.html">The Best Movie</a></h1>
         <div></div>
         <div class="search">
-            <label for="검색창" class="blind">검색창</label>
-            <input type="text" id="search-input" name="search" placeholder="영화 제목을 입력해주세요" required/>
-            <button type="submit" id="search-btn" class="search-btn">검색</button>
+            <form name="search" onsubmit="return false">
+                <label for="검색창" class="blind">검색창</label>
+                <input type="text" id="search-input" name="search" placeholder="영화 제목을 입력해주세요" autofocus/>
+                <button type="submit" id="search-btn" class="search-btn">검색</button>
+            </form>            
         </div>    
     </header>
 
@@ -39,8 +41,8 @@
 
     <!-- top btn  -->
     <a id="top-btn" href="" ><i class="fas fa-solid fa-arrow-up"></i></a>
-
-    <script type="text/javascript" src="js/script.js"></script>
+    
     <script src="https://kit.fontawesome.com/a881f3a9e8.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

@@ -1,9 +1,4 @@
-window.addEventListener("DOMContentLoaded", ()=>{
-    //로드시 리스팅
-    listing();
-    // 로드시 검색 input창 커서 위치
-    focusing();
-});
+window.addEventListener("DOMContentLoaded", () => listing());
 
 // GET
 const OPTIONS = {
@@ -15,13 +10,13 @@ const OPTIONS = {
     },
 };
 
-// 영화 카드 리스팅
+// 영화 카드 목록
 function listing(){
     fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', OPTIONS).then((response) => response.json()).then((response) => {       
         let movies = response['results'];
         let cardWrap = document.querySelector(".card-wrap"); 
         let temp_html = ''; 
-
+        
         movies.forEach((item)=>{
             let title = item['original_title'];
             let overview = item['overview'];
@@ -37,68 +32,49 @@ function listing(){
                                 </div>
                             </div>`       
             cardWrap.innerHTML = temp_html;
-        });
-      
-        // 검색 키워드 filter / forEach
-        let searchBtn = document.getElementById("search-btn");        
-        searchBtn.addEventListener("click", ()=>{
-            let inputValue =  document.getElementById("search-input").value.toLowerCase();
-
-            // filter로 키워드 포함 배열 생성
-            const matchMovies = movies.filter((item) => { 
-                let titles = item.original_title.split(' ').join('').toLowerCase();
-                inputValue = inputValue.split(' ').join('');
-                return titles.includes(inputValue);
-            });
-            temp_html = '';             
-            matchMovies.forEach((item)=>{
-                let title = item['original_title'];
-                let overview = item['overview'];
-                let poster = item['poster_path'];
-                let vote_avg = item['vote_average'];
-                let _id = item['id'];
-                temp_html += `<div class="card-list" id="${_id}" onclick="alertId(${_id})">
-                                    <img src="https://image.tmdb.org/t/p/original${poster}" class="card-img" />
-                                    <div class="card-info">
-                                        <h5 class="card-title">${title}</h5>
-                                        <p class="card-text">${overview}</p>
-                                        <p class="card-avg"> Rating ${vote_avg}</p>
-                                    </div>
-                                </div>`       
-                cardWrap.innerHTML = temp_html;
-            });
-
-            // 검색 키워드 포함 영화가 없을 시 
-            if (matchMovies.length === 0) {
-                alert("검색된 영화가 없습니다. 다시 검색해 주세요.");
-                location.reload();
-                focusing();
-            }
-
-            // 검색어가 없을 시 
-            if(inputValue.length === 0) {
-                alert("검색어를 입력해 주세요")
-            }
-        });
-
-        // 키보드 enter 키 입력
-        document.getElementById("search-input").addEventListener("keyup", function(e) {
-            if (e.code === 'Enter') {
-                document.getElementById("search-btn").click();
-            }
-        });    
+        });  
     })
     .catch((err) => console.error(err));
 }
 
-// 검색창 cursor 위치
-function focusing(){
-    let input = document.getElementById("search-input")
-    input.focus();
-}
-
-// 카드 클릭 시 영화 ID alert
+// 카드 클릭 시 ID alert
 let alertId = (_id) => alert(`영화 id : ${_id}`);
+
+// 영화 검색
+let searchBtn = document.getElementById("search-btn");   
+searchBtn.addEventListener("click", () => {        
+    let inputValue = document.getElementById("search-input").value.replace(/ /g,"").toLowerCase(); 
+    let cardList = document.querySelectorAll(".card-list");     
+    const matchMovies = [...cardList].filter((item) => { 
+        let titles = item.querySelector(".card-title").textContent.replace(/ /g,"").toLowerCase();
+        return titles.includes(inputValue);
+    });      
+    [...cardList].forEach((item)=>{
+        if(matchMovies.includes(item)){
+            item.classList.remove("hide");
+        }else {
+            item.classList.add("hide");
+        }
+    });
+
+    // 검색 영화 결과 없을 시 
+    if (matchMovies.length === 0) {
+        alert("검색된 영화가 없습니다. 다시 검색해 주세요.");
+        location.reload();
+    }
+
+    // 검색어가 없을 시 
+    if(inputValue.length === 0) {
+        alert("검색어를 입력해 주세요");
+    }
+});
+
+// 키보드 enter
+document.getElementById("search-input").addEventListener("keyup", function(e) {
+    if (e.code === 'Enter') {
+        e.preventDefault();
+    }
+});  
 
 // home top 버튼
 const topBtn = document.getElementById("top-btn"); 
