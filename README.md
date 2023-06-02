@@ -20,5 +20,6 @@
   - 반응형 사이트
   
  # 구현화면
- 
- 
+ ![image](https://github.com/jinoc-git/movie/assets/126348461/a34da555-5bab-42b1-858f-320f3722bece)
+ <a href="https://youtu.be/J_E-kN4RMNk">구현 영상 링크</a>
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/J_E-kN4RMNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
