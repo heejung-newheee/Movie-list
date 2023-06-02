@@ -42,13 +42,16 @@ let alertId = (_id) => alert(`영화 id : ${_id}`);
 
 // 영화 검색
 let searchBtn = document.getElementById("search-btn");   
-searchBtn.addEventListener("click", () => {        
+searchBtn.addEventListener("click", () => {    
+
     let inputValue = document.getElementById("search-input").value.replace(/ /g,"").toLowerCase(); 
     let cardList = document.querySelectorAll(".card-list");     
+
     const matchMovies = [...cardList].filter((item) => { 
         let titles = item.querySelector(".card-title").textContent.replace(/ /g,"").toLowerCase();
         return titles.includes(inputValue);
     });      
+    
     [...cardList].forEach((item)=>{
         if(matchMovies.includes(item)){
             item.classList.remove("hide");
